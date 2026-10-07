@@ -64,3 +64,31 @@ python predict.py "garbage_classification\plastic\plastic1.jpg"
 ```
 
 You can change the image path to any image you want to classify.
+
+## Run Web App
+
+```powershell
+python app.py
+```
+
+Then open `http://127.0.0.1:5000` in your browser, upload an image, and choose
+either saved model from the `models/` folder.
+
+If port `5000` is unavailable, start it on another port:
+
+```powershell
+$env:PORT = "7860"
+python app.py
+```
+
+## Deploy Live
+
+The app is ready for a Python web host such as Render. Push this project to
+GitHub, create a Render Web Service from the repository, and use:
+
+- Build command: `pip install -r requirements.txt`
+- Start command: `gunicorn --bind 0.0.0.0:$PORT app:app`
+- Runtime: Python 3.11
+
+This repository also includes `render.yaml`, so Render can detect the service
+settings automatically from the repo.

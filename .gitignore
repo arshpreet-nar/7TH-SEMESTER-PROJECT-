@@ -1,4 +1,8 @@
 __pycache__/
 .venv/
-models/
+models/*
+!models/best_garbage_classifier.keras
+!models/garbage_classifier_final.keras
+!models/metadata.json
+!models/training_history.png
 *.pyc

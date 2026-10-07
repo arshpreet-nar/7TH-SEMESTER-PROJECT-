@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Garbage Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="intro">
+        <div>
+          <p class="eyebrow">Deep learning waste detection</p>
+          <h1>Garbage Classifier</h1>
+          <p class="lede">Upload a waste image and classify it with the trained MobileNetV2 models in this project.</p>
+        </div>
+        <div class="metrics" aria-label="Model metrics">
+          <div>
+            <span>{{ metadata.class_names | length }}</span>
+            <small>classes</small>
+          </div>
+          <div>
+            <span>{{ "%.1f"|format((metadata.validation_accuracy or 0) * 100) }}%</span>
+            <small>validation</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <form class="upload-panel" method="post" enctype="multipart/form-data">
+          <label class="field">
+            <span>Model</span>
+            <select name="model">
+              {% for model in models %}
+                <option value="{{ model }}" {% if model == selected_model %}selected{% endif %}>{{ model }}</option>
+              {% endfor %}
+            </select>
+          </label>
+
+          <label class="drop-zone">
+            <input type="file" name="image" accept="image/png,image/jpeg,image/bmp,image/webp" required>
+            <span class="drop-icon">+</span>
+            <strong>Choose image</strong>
+            <small>JPG, PNG, BMP, or WEBP up to 8 MB</small>
+          </label>
+
+          <button type="submit">Classify Image</button>
+
+          {% if error %}
+            <p class="error" role="alert">{{ error }}</p>
+          {% endif %}
+        </form>
+
+        <section class="result-panel" aria-live="polite">
+          {% if result %}
+            <div class="image-preview">
+              <img src="{{ result.image }}" alt="Uploaded image preview">
+            </div>
+            <div class="summary">
+              <p class="filename">{{ result.filename }}</p>
+              <h2>{{ result.top_prediction.label }}</h2>
+              <p>{{ result.top_prediction.percent }}% confidence</p>
+            </div>
+            <div class="predictions">
+              {% for prediction in result.predictions %}
+                <div class="prediction">
+                  <div class="prediction-label">
+                    <span>{{ prediction.label }}</span>
+                    <span>{{ prediction.percent }}%</span>
+                  </div>
+                  <div class="bar">
+                    <span style="width: {{ prediction.percent }}%"></span>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="empty-state">
+              <h2>Ready for an image</h2>
+              <p>The app will show the top five labels and confidence scores after prediction.</p>
+            </div>
+          {% endif %}
+        </section>
+      </section>
+
+      <section class="classes" aria-label="Supported classes">
+        {% for class_name in metadata.class_names %}
+          <span>{{ class_name }}</span>
+        {% endfor %}
+      </section>
+    </main>
+  </body>
+</html>

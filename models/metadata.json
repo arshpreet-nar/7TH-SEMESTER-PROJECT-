@@ -1,0 +1,50 @@
+{
+  "class_names": [
+    "battery",
+    "biological",
+    "brown-glass",
+    "cardboard",
+    "clothes",
+    "green-glass",
+    "metal",
+    "paper",
+    "plastic",
+    "shoes",
+    "trash",
+    "white-glass"
+  ],
+  "image_size": [
+    224,
+    224
+  ],
+  "class_counts": {
+    "battery": 945,
+    "biological": 985,
+    "brown-glass": 607,
+    "cardboard": 891,
+    "clothes": 5325,
+    "green-glass": 629,
+    "metal": 769,
+    "paper": 1050,
+    "plastic": 865,
+    "shoes": 1977,
+    "trash": 697,
+    "white-glass": 775
+  },
+  "class_weights": {
+    "0": 1.3681657848324515,
+    "1": 1.3126057529610828,
+    "2": 2.1300109829763865,
+    "3": 1.4510849233071454,
+    "4": 0.24280125195618155,
+    "5": 2.055511393746688,
+    "6": 1.6812960554833116,
+    "7": 1.2313492063492064,
+    "8": 1.4947013487475915,
+    "9": 0.6539790929017029,
+    "10": 1.8549736967957915,
+    "11": 1.668279569892473
+  },
+  "validation_accuracy": 0.9468256235122681,
+  "validation_loss": 0.17203548550605774
+}
