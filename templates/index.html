@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f7a5a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='app-icon.png') }}">
     <title>Garbage Classifier</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
@@ -24,6 +28,7 @@
             <small>validation</small>
           </div>
         </div>
+        <button type="button" id="install-app" class="install-button" hidden>Install app</button>
       </section>
 
       <div class="mode-switch" role="tablist" aria-label="Choose detection method">
@@ -145,9 +150,11 @@
       const liveClass = document.getElementById("live-classification");
       const liveConfidence = document.getElementById("live-confidence");
       const livePredictions = document.getElementById("live-predictions");
+      const installButton = document.getElementById("install-app");
       let cameraStream;
       let captureTimer;
       let requestInFlight = false;
+      let installPrompt;
 
       function setMode(mode) {
         const cameraSelected = mode === "camera";
@@ -254,6 +261,26 @@
       startButton.addEventListener("click", startCamera);
       stopButton.addEventListener("click", stopCamera);
       window.addEventListener("beforeunload", stopCamera);
+
+      window.addEventListener("beforeinstallprompt", (event) => {
+        event.preventDefault();
+        installPrompt = event;
+        installButton.hidden = false;
+      });
+      installButton.addEventListener("click", async () => {
+        if (!installPrompt) return;
+        installPrompt.prompt();
+        await installPrompt.userChoice;
+        installPrompt = undefined;
+        installButton.hidden = true;
+      });
+      window.addEventListener("appinstalled", () => {
+        installButton.hidden = true;
+        status.textContent = "App installed. You can open it from your home screen.";
+      });
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => navigator.serviceWorker.register("/service-worker.js"));
+      }
     </script>
   </body>
 </html>

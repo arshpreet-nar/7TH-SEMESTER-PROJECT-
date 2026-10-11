@@ -72,6 +72,19 @@ h1 {
   gap: 10px;
 }
 
+.install-button {
+  width: auto;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent-strong);
+}
+
+.install-button:hover {
+  background: #e6f2ec;
+}
+
 .metrics div {
   min-width: 116px;
   border: 1px solid var(--line);
@@ -475,10 +488,15 @@ button:disabled {
 
   .intro {
     display: grid;
+    align-items: start;
   }
 
   .metrics {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .install-button {
+    width: 100%;
   }
 
   .mode-switch {
@@ -490,5 +508,14 @@ button:disabled {
   .camera-stage,
   .live-result {
     min-height: 280px;
+  }
+
+  .camera-stage {
+    min-height: 54vh;
+    max-height: 620px;
+  }
+
+  .camera-controls {
+    grid-template-columns: 1fr 88px;
   }
 }

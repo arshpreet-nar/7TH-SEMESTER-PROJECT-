@@ -7,7 +7,7 @@ from pathlib import Path
 
 import numpy as np
 import tensorflow as tf
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, send_from_directory
 from PIL import Image
 
 
@@ -152,6 +152,15 @@ def predict_frame():
     return jsonify(
         top_prediction=predictions[0],
         predictions=predictions,
+    )
+
+
+@app.get("/service-worker.js")
+def service_worker():
+    return send_from_directory(
+        app.static_folder,
+        "service-worker.js",
+        mimetype="application/javascript",
     )
 
 

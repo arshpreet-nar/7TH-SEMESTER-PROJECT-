@@ -84,6 +84,13 @@ shows the five highest-confidence predictions.
 Camera access requires `localhost` during development or HTTPS after deployment.
 Render provides HTTPS for deployed web services.
 
+## Install on Mobile
+
+After deploying the site on Render, open its HTTPS URL on your phone. When the
+browser offers **Install app**, choose it. The app will appear on the home
+screen and opens in a standalone mobile view. Use **Use camera** to start the
+rear camera and classify waste in real time.
+
 If port `5000` is unavailable, start it on another port:
 
 ```powershell
