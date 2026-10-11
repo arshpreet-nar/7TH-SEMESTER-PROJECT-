@@ -7,40 +7,49 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='app-icon.png') }}">
-    <title>Garbage Classifier</title>
+    <title>EcoSort AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
     <main class="app-shell">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="EcoSort AI home">
+          <img src="{{ url_for('static', filename='garbage-ai-logo.jpg') }}" alt="EcoSort AI recycling logo">
+          <span>EcoSort <b>AI</b></span>
+        </a>
+        <button type="button" id="install-app" class="install-button" hidden>Install app</button>
+      </header>
+
       <section class="intro">
-        <div>
-          <p class="eyebrow">Deep learning waste detection</p>
-          <h1>Garbage Classifier</h1>
-          <p class="lede">Choose a photo or use your camera to identify the most likely waste category.</p>
+        <div class="intro-copy">
+          <p class="eyebrow">AI-powered waste sorting</p>
+          <h1>Know where it goes.</h1>
+          <p class="lede">Scan everyday waste with your camera or photo. Get a likely category in seconds, then sort with more confidence.</p>
+          <div class="quick-note"><span></span> Select one item at a time for the clearest result</div>
         </div>
         <div class="metrics" aria-label="Model metrics">
           <div>
-            <span>{{ metadata.class_names | length }}</span>
-            <small>classes</small>
+            <strong>{{ metadata.class_names | length }}</strong>
+            <small>materials recognized</small>
           </div>
           <div>
-            <span>{{ "%.1f"|format((metadata.validation_accuracy or 0) * 100) }}%</span>
-            <small>validation</small>
+            <strong>{{ "%.1f"|format((metadata.validation_accuracy or 0) * 100) }}%</strong>
+            <small>validation accuracy</small>
           </div>
         </div>
-        <button type="button" id="install-app" class="install-button" hidden>Install app</button>
       </section>
 
       <div class="mode-switch" role="tablist" aria-label="Choose detection method">
-        <button type="button" class="mode-button is-active" id="upload-mode-button" role="tab" aria-selected="true" aria-controls="upload-mode">Upload image</button>
-        <button type="button" class="mode-button" id="camera-mode-button" role="tab" aria-selected="false" aria-controls="camera-mode">Use camera</button>
+        <button type="button" class="mode-button is-active" id="upload-mode-button" role="tab" aria-selected="true" aria-controls="upload-mode">Upload a photo</button>
+        <button type="button" class="mode-button" id="camera-mode-button" role="tab" aria-selected="false" aria-controls="camera-mode">Scan live</button>
       </div>
 
       <section class="workspace mode-panel" id="upload-mode" role="tabpanel" aria-labelledby="upload-mode-button">
         <form class="upload-panel" method="post" enctype="multipart/form-data">
           <div class="panel-heading">
-            <h2>Upload a waste image</h2>
-            <p>Choose the model, add one photo, then see the five strongest matches.</p>
+            <p class="section-kicker">Image scan</p>
+            <h2>What do you want to sort?</h2>
+            <p>Choose a clear image with one item in view.</p>
           </div>
           <label class="field">
             <span>Model</span>
@@ -54,11 +63,11 @@
           <label class="drop-zone">
             <input type="file" name="image" accept="image/png,image/jpeg,image/bmp,image/webp" required>
             <span class="drop-icon">+</span>
-            <strong id="file-prompt">Choose an image</strong>
-            <small id="file-details">JPG, PNG, BMP, or WEBP up to 8 MB</small>
+            <strong id="file-prompt">Tap to choose a photo</strong>
+            <small id="file-details">JPG, PNG, BMP, or WEBP</small>
           </label>
 
-          <button type="submit">Analyze image</button>
+          <button type="submit">Find the category</button>
 
           {% if error %}
             <p class="error" role="alert">{{ error }}</p>
@@ -90,8 +99,9 @@
             </div>
           {% else %}
             <div class="empty-state">
-              <h2>Ready for an image</h2>
-              <p>The app will show the top five labels and confidence scores after prediction.</p>
+              <span class="empty-mark">AI</span>
+              <h2>Ready when you are</h2>
+              <p>Choose a photo to see the most likely material and confidence level.</p>
             </div>
           {% endif %}
         </section>
@@ -99,11 +109,11 @@
 
       <section class="live-workspace mode-panel" id="camera-mode" role="tabpanel" aria-labelledby="camera-mode-button" hidden>
         <div class="live-copy">
-          <p class="eyebrow">Camera mode</p>
-          <h2 id="live-title">Live waste detection</h2>
-          <p>Start the camera, point it at one item, and watch the predictions update automatically.</p>
+          <p class="eyebrow">Live camera</p>
+          <h2 id="live-title">Point. Scan. Sort.</h2>
+          <p>Keep one item centered in the frame while the label updates.</p>
           <div class="camera-controls">
-            <button type="button" id="start-camera">Start Camera</button>
+            <button type="button" id="start-camera">Start scanning</button>
             <button type="button" id="stop-camera" class="secondary-button" disabled>Stop</button>
           </div>
           <p id="camera-status" class="camera-status" role="status">Camera is off.</p>
@@ -113,12 +123,12 @@
           <video id="camera-feed" autoplay playsinline muted aria-label="Live camera preview"></video>
           <canvas id="camera-canvas" hidden></canvas>
           <div id="camera-placeholder" class="camera-placeholder">
-            <span>Camera preview</span>
+            <span>Camera is ready</span>
           </div>
         </div>
 
         <section id="live-result" class="live-result" aria-live="polite">
-          <p class="live-label">Live prediction</p>
+          <p class="live-label">Live result</p>
           <h3 id="live-classification">Waiting for camera</h3>
           <p id="live-confidence">Start the camera to begin detection.</p>
           <div id="live-predictions" class="predictions"></div>
@@ -126,9 +136,12 @@
       </section>
 
       <section class="classes" aria-label="Supported classes">
-        {% for class_name in metadata.class_names %}
-          <span>{{ class_name }}</span>
-        {% endfor %}
+        <p>Recognizes</p>
+        <div>
+          {% for class_name in metadata.class_names %}
+            <span>{{ class_name }}</span>
+          {% endfor %}
+        </div>
       </section>
     </main>
     <script>
