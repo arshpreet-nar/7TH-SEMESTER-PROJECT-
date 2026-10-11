@@ -90,5 +90,15 @@ GitHub, create a Render Web Service from the repository, and use:
 - Start command: `gunicorn --bind 0.0.0.0:$PORT app:app`
 - Runtime: Python 3.11
 
-This repository also includes `render.yaml`, so Render can detect the service
-settings automatically from the repo.
+This repository also includes `render.yaml`, `runtime.txt`, and
+`.python-version`, so Render can detect the service settings automatically from
+the repo.
+
+If Render logs show `Using Python version 3.14.3 (default)` and TensorFlow fails
+to install, set this environment variable in the Render dashboard and redeploy:
+
+- Key: `PYTHON_VERSION`
+- Value: `3.11.9`
+
+After changing the Python version, run a manual deploy with a cleared build
+cache.
