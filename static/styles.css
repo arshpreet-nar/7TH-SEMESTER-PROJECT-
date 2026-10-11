@@ -18,10 +18,7 @@
 body {
   min-height: 100vh;
   margin: 0;
-  background:
-    linear-gradient(135deg, rgba(31, 122, 90, 0.12), transparent 36%),
-    linear-gradient(315deg, rgba(215, 137, 56, 0.14), transparent 34%),
-    var(--bg);
+  background: var(--bg);
   color: var(--ink);
 }
 
@@ -101,6 +98,40 @@ h1 {
   align-items: stretch;
 }
 
+.mode-switch {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 4px;
+  margin: 0 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #e9efea;
+  padding: 4px;
+}
+
+.mode-button {
+  width: auto;
+  min-height: 40px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.mode-button:hover,
+.mode-button.is-active {
+  background: var(--panel);
+  color: var(--accent-strong);
+}
+
+.mode-button.is-active {
+  box-shadow: 0 2px 6px rgba(29, 37, 34, 0.1);
+}
+
+.mode-panel[hidden] {
+  display: none;
+}
+
 .upload-panel,
 .result-panel {
   border: 1px solid var(--line);
@@ -114,6 +145,18 @@ h1 {
   flex-direction: column;
   gap: 18px;
   padding: 20px;
+}
+
+.panel-heading h2 {
+  margin: 0 0 6px;
+  font-size: 1.2rem;
+}
+
+.panel-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
 }
 
 .field span {
@@ -151,6 +194,12 @@ select {
   padding: 24px;
   text-align: center;
   cursor: pointer;
+}
+
+.drop-zone:focus-within {
+  border-color: var(--accent);
+  outline: 3px solid rgba(31, 122, 90, 0.16);
+  outline-offset: 2px;
 }
 
 .drop-zone input {
@@ -300,6 +349,117 @@ button:hover {
   text-transform: capitalize;
 }
 
+.live-workspace {
+  display: grid;
+  grid-template-columns: 0.8fr 1.15fr 0.85fr;
+  gap: 18px;
+  align-items: stretch;
+  margin-top: 18px;
+}
+
+.live-copy,
+.camera-stage,
+.live-result {
+  min-height: 350px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 18px 48px rgba(29, 37, 34, 0.08);
+}
+
+.live-copy,
+.live-result {
+  padding: 22px;
+}
+
+.live-copy h2,
+.live-result h3 {
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.live-copy > p:not(.eyebrow):not(.camera-status),
+.live-confidence,
+.camera-status {
+  color: var(--muted);
+}
+
+.camera-controls {
+  display: grid;
+  grid-template-columns: 1fr 92px;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.secondary-button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+}
+
+.secondary-button:hover {
+  background: #edf3ee;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.camera-status {
+  min-height: 42px;
+  margin: 18px 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.camera-stage {
+  position: relative;
+  overflow: hidden;
+  background: #17231f;
+}
+
+.camera-stage video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #1d5140;
+  color: #d5e9de;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.camera-placeholder span {
+  border: 1px solid rgba(213, 233, 222, 0.45);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.live-label {
+  margin-bottom: 10px;
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.live-result h3 {
+  font-size: 1.8rem;
+}
+
+.live-result > p:not(.live-label) {
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
 @media (max-width: 780px) {
   .app-shell {
     width: min(100% - 24px, 1120px);
@@ -308,7 +468,8 @@ button:hover {
 
   .intro,
   .workspace,
-  .summary {
+  .summary,
+  .live-workspace {
     grid-template-columns: 1fr;
   }
 
@@ -318,5 +479,16 @@ button:hover {
 
   .metrics {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mode-switch {
+    display: grid;
+    width: 100%;
+  }
+
+  .live-copy,
+  .camera-stage,
+  .live-result {
+    min-height: 280px;
   }
 }

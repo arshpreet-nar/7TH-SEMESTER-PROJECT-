@@ -7,7 +7,7 @@ from pathlib import Path
 
 import numpy as np
 import tensorflow as tf
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from PIL import Image
 
 
@@ -69,6 +69,20 @@ def image_to_data_url(image: Image.Image) -> str:
     return f"data:image/jpeg;base64,{encoded}"
 
 
+def image_from_data_url(data_url: str) -> Image.Image:
+    if not data_url.startswith("data:image/") or "," not in data_url:
+        raise ValueError("Camera frame must be a valid image data URL.")
+
+    encoded = data_url.split(",", 1)[1]
+    if len(encoded) > 11_000_000:
+        raise ValueError("Camera frame is too large.")
+
+    try:
+        return Image.open(BytesIO(base64.b64decode(encoded, validate=True)))
+    except Exception as exc:
+        raise ValueError("Camera frame could not be read.") from exc
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     metadata = load_metadata()
@@ -113,6 +127,31 @@ def index():
         selected_model=selected_model,
         result=result,
         error=error,
+    )
+
+
+@app.post("/api/predict-frame")
+def predict_frame():
+    payload = request.get_json(silent=True) or {}
+    model_name = payload.get("model", "")
+    model_names = [path.name for path in available_models()]
+
+    if model_name not in model_names:
+        return jsonify(error="Choose one of the available trained models."), 400
+
+    frame = payload.get("image")
+    if not isinstance(frame, str):
+        return jsonify(error="Send an image captured from the camera."), 400
+
+    try:
+        image = image_from_data_url(frame)
+        predictions = predict_image(image, model_name)
+    except Exception as exc:
+        return jsonify(error=f"Could not classify this camera frame: {exc}"), 400
+
+    return jsonify(
+        top_prediction=predictions[0],
+        predictions=predictions,
     )
 
 

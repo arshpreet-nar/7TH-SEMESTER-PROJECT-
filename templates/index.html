@@ -12,7 +12,7 @@
         <div>
           <p class="eyebrow">Deep learning waste detection</p>
           <h1>Garbage Classifier</h1>
-          <p class="lede">Upload a waste image and classify it with the trained MobileNetV2 models in this project.</p>
+          <p class="lede">Choose a photo or use your camera to identify the most likely waste category.</p>
         </div>
         <div class="metrics" aria-label="Model metrics">
           <div>
@@ -26,11 +26,20 @@
         </div>
       </section>
 
-      <section class="workspace">
+      <div class="mode-switch" role="tablist" aria-label="Choose detection method">
+        <button type="button" class="mode-button is-active" id="upload-mode-button" role="tab" aria-selected="true" aria-controls="upload-mode">Upload image</button>
+        <button type="button" class="mode-button" id="camera-mode-button" role="tab" aria-selected="false" aria-controls="camera-mode">Use camera</button>
+      </div>
+
+      <section class="workspace mode-panel" id="upload-mode" role="tabpanel" aria-labelledby="upload-mode-button">
         <form class="upload-panel" method="post" enctype="multipart/form-data">
+          <div class="panel-heading">
+            <h2>Upload a waste image</h2>
+            <p>Choose the model, add one photo, then see the five strongest matches.</p>
+          </div>
           <label class="field">
             <span>Model</span>
-            <select name="model">
+            <select name="model" id="model-select">
               {% for model in models %}
                 <option value="{{ model }}" {% if model == selected_model %}selected{% endif %}>{{ model }}</option>
               {% endfor %}
@@ -40,11 +49,11 @@
           <label class="drop-zone">
             <input type="file" name="image" accept="image/png,image/jpeg,image/bmp,image/webp" required>
             <span class="drop-icon">+</span>
-            <strong>Choose image</strong>
-            <small>JPG, PNG, BMP, or WEBP up to 8 MB</small>
+            <strong id="file-prompt">Choose an image</strong>
+            <small id="file-details">JPG, PNG, BMP, or WEBP up to 8 MB</small>
           </label>
 
-          <button type="submit">Classify Image</button>
+          <button type="submit">Analyze image</button>
 
           {% if error %}
             <p class="error" role="alert">{{ error }}</p>
@@ -83,11 +92,168 @@
         </section>
       </section>
 
+      <section class="live-workspace mode-panel" id="camera-mode" role="tabpanel" aria-labelledby="camera-mode-button" hidden>
+        <div class="live-copy">
+          <p class="eyebrow">Camera mode</p>
+          <h2 id="live-title">Live waste detection</h2>
+          <p>Start the camera, point it at one item, and watch the predictions update automatically.</p>
+          <div class="camera-controls">
+            <button type="button" id="start-camera">Start Camera</button>
+            <button type="button" id="stop-camera" class="secondary-button" disabled>Stop</button>
+          </div>
+          <p id="camera-status" class="camera-status" role="status">Camera is off.</p>
+        </div>
+
+        <div class="camera-stage">
+          <video id="camera-feed" autoplay playsinline muted aria-label="Live camera preview"></video>
+          <canvas id="camera-canvas" hidden></canvas>
+          <div id="camera-placeholder" class="camera-placeholder">
+            <span>Camera preview</span>
+          </div>
+        </div>
+
+        <section id="live-result" class="live-result" aria-live="polite">
+          <p class="live-label">Live prediction</p>
+          <h3 id="live-classification">Waiting for camera</h3>
+          <p id="live-confidence">Start the camera to begin detection.</p>
+          <div id="live-predictions" class="predictions"></div>
+        </section>
+      </section>
+
       <section class="classes" aria-label="Supported classes">
         {% for class_name in metadata.class_names %}
           <span>{{ class_name }}</span>
         {% endfor %}
       </section>
     </main>
+    <script>
+      const uploadModeButton = document.getElementById("upload-mode-button");
+      const cameraModeButton = document.getElementById("camera-mode-button");
+      const uploadMode = document.getElementById("upload-mode");
+      const cameraMode = document.getElementById("camera-mode");
+      const fileInput = document.querySelector('input[type="file"]');
+      const filePrompt = document.getElementById("file-prompt");
+      const fileDetails = document.getElementById("file-details");
+      const startButton = document.getElementById("start-camera");
+      const stopButton = document.getElementById("stop-camera");
+      const video = document.getElementById("camera-feed");
+      const canvas = document.getElementById("camera-canvas");
+      const context = canvas.getContext("2d");
+      const placeholder = document.getElementById("camera-placeholder");
+      const status = document.getElementById("camera-status");
+      const modelSelect = document.getElementById("model-select");
+      const liveClass = document.getElementById("live-classification");
+      const liveConfidence = document.getElementById("live-confidence");
+      const livePredictions = document.getElementById("live-predictions");
+      let cameraStream;
+      let captureTimer;
+      let requestInFlight = false;
+
+      function setMode(mode) {
+        const cameraSelected = mode === "camera";
+        uploadMode.hidden = cameraSelected;
+        cameraMode.hidden = !cameraSelected;
+        uploadModeButton.classList.toggle("is-active", !cameraSelected);
+        cameraModeButton.classList.toggle("is-active", cameraSelected);
+        uploadModeButton.setAttribute("aria-selected", String(!cameraSelected));
+        cameraModeButton.setAttribute("aria-selected", String(cameraSelected));
+        if (!cameraSelected && cameraStream) stopCamera();
+      }
+
+      function renderPredictions(predictions) {
+        livePredictions.replaceChildren(...predictions.map((prediction) => {
+          const row = document.createElement("div");
+          row.className = "prediction";
+          row.innerHTML = `
+            <div class="prediction-label">
+              <span>${prediction.label}</span>
+              <span>${prediction.percent}%</span>
+            </div>
+            <div class="bar"><span style="width: ${prediction.percent}%"></span></div>
+          `;
+          return row;
+        }));
+      }
+
+      async function captureAndPredict() {
+        if (!cameraStream || requestInFlight || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) return;
+
+        requestInFlight = true;
+        const maxWidth = 640;
+        const scale = Math.min(1, maxWidth / video.videoWidth);
+        canvas.width = Math.max(1, Math.round(video.videoWidth * scale));
+        canvas.height = Math.max(1, Math.round(video.videoHeight * scale));
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        try {
+          const response = await fetch("{{ url_for('predict_frame') }}", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              model: modelSelect.value,
+              image: canvas.toDataURL("image/jpeg", 0.72),
+            }),
+          });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || "Prediction failed.");
+
+          liveClass.textContent = data.top_prediction.label;
+          liveConfidence.textContent = `${data.top_prediction.percent}% confidence`;
+          renderPredictions(data.predictions);
+          status.textContent = "Live detection is running.";
+        } catch (error) {
+          status.textContent = error.message;
+        } finally {
+          requestInFlight = false;
+        }
+      }
+
+      async function startCamera() {
+        if (!navigator.mediaDevices?.getUserMedia) {
+          status.textContent = "This browser does not support camera access.";
+          return;
+        }
+
+        try {
+          cameraStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 720 } },
+            audio: false,
+          });
+          video.srcObject = cameraStream;
+          await video.play();
+          placeholder.hidden = true;
+          startButton.disabled = true;
+          stopButton.disabled = false;
+          status.textContent = "Camera started. Connecting to the model...";
+          captureAndPredict();
+          captureTimer = window.setInterval(captureAndPredict, 1200);
+        } catch (error) {
+          status.textContent = "Camera permission was denied or no camera is available.";
+        }
+      }
+
+      function stopCamera() {
+        window.clearInterval(captureTimer);
+        cameraStream?.getTracks().forEach((track) => track.stop());
+        cameraStream = undefined;
+        video.srcObject = null;
+        placeholder.hidden = false;
+        startButton.disabled = false;
+        stopButton.disabled = true;
+        status.textContent = "Camera stopped.";
+      }
+
+      fileInput.addEventListener("change", () => {
+        const [file] = fileInput.files;
+        if (!file) return;
+        filePrompt.textContent = file.name;
+        fileDetails.textContent = `${Math.ceil(file.size / 1024)} KB selected`;
+      });
+      uploadModeButton.addEventListener("click", () => setMode("upload"));
+      cameraModeButton.addEventListener("click", () => setMode("camera"));
+      startButton.addEventListener("click", startCamera);
+      stopButton.addEventListener("click", stopCamera);
+      window.addEventListener("beforeunload", stopCamera);
+    </script>
   </body>
 </html>

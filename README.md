@@ -74,6 +74,16 @@ python app.py
 Then open `http://127.0.0.1:5000` in your browser, upload an image, and choose
 either saved model from the `models/` folder.
 
+## Live Camera Detection
+
+The web app also includes a **Live waste detection** section. Select a model,
+click **Start Camera**, allow browser camera permission, and point the camera at
+a waste item. The browser sends one compact frame roughly every 1.2 seconds and
+shows the five highest-confidence predictions.
+
+Camera access requires `localhost` during development or HTTPS after deployment.
+Render provides HTTPS for deployed web services.
+
 If port `5000` is unavailable, start it on another port:
 
 ```powershell
