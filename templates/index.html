@@ -111,16 +111,22 @@
         <div class="live-copy">
           <p class="eyebrow">Live camera</p>
           <h2 id="live-title">Point. Scan. Sort.</h2>
-          <p>Keep one item centered in the frame while the label updates.</p>
+          <p>Center one item in the preview, capture it, then ask the model to identify it.</p>
           <div class="camera-controls">
-            <button type="button" id="start-camera">Start scanning</button>
-            <button type="button" id="stop-camera" class="secondary-button" disabled>Stop</button>
+            <button type="button" id="start-camera">Start camera</button>
+            <button type="button" id="stop-camera" class="secondary-button" disabled>Stop camera</button>
+          </div>
+          <div class="capture-controls">
+            <button type="button" id="capture-photo" disabled>Capture photo</button>
+            <button type="button" id="retake-photo" class="secondary-button" hidden>Retake</button>
+            <button type="button" id="predict-photo" hidden>Predict image</button>
           </div>
           <p id="camera-status" class="camera-status" role="status">Camera is off.</p>
         </div>
 
         <div class="camera-stage">
           <video id="camera-feed" autoplay playsinline muted aria-label="Live camera preview"></video>
+          <img id="captured-photo" alt="Captured image for waste classification" hidden>
           <canvas id="camera-canvas" hidden></canvas>
           <div id="camera-placeholder" class="camera-placeholder">
             <span>Camera is ready</span>
@@ -128,9 +134,9 @@
         </div>
 
         <section id="live-result" class="live-result" aria-live="polite">
-          <p class="live-label">Live result</p>
-          <h3 id="live-classification">Waiting for camera</h3>
-          <p id="live-confidence">Start the camera to begin detection.</p>
+          <p class="live-label">Scan result</p>
+          <h3 id="live-classification">Ready to scan</h3>
+          <p id="live-confidence">Start the camera, capture an item, then predict.</p>
           <div id="live-predictions" class="predictions"></div>
         </section>
       </section>
@@ -154,7 +160,11 @@
       const fileDetails = document.getElementById("file-details");
       const startButton = document.getElementById("start-camera");
       const stopButton = document.getElementById("stop-camera");
+      const captureButton = document.getElementById("capture-photo");
+      const retakeButton = document.getElementById("retake-photo");
+      const predictButton = document.getElementById("predict-photo");
       const video = document.getElementById("camera-feed");
+      const capturedPhoto = document.getElementById("captured-photo");
       const canvas = document.getElementById("camera-canvas");
       const context = canvas.getContext("2d");
       const placeholder = document.getElementById("camera-placeholder");
@@ -165,8 +175,8 @@
       const livePredictions = document.getElementById("live-predictions");
       const installButton = document.getElementById("install-app");
       let cameraStream;
-      let captureTimer;
       let requestInFlight = false;
+      let capturedImage;
       let installPrompt;
 
       function setMode(mode) {
@@ -195,15 +205,47 @@
         }));
       }
 
-      async function captureAndPredict() {
-        if (!cameraStream || requestInFlight || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) return;
-
+      function capturePhoto() {
+        if (!cameraStream || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) return;
         requestInFlight = true;
         const maxWidth = 640;
         const scale = Math.min(1, maxWidth / video.videoWidth);
         canvas.width = Math.max(1, Math.round(video.videoWidth * scale));
         canvas.height = Math.max(1, Math.round(video.videoHeight * scale));
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        capturedImage = canvas.toDataURL("image/jpeg", 0.82);
+        capturedPhoto.src = capturedImage;
+        capturedPhoto.hidden = false;
+        video.hidden = true;
+        captureButton.hidden = true;
+        retakeButton.hidden = false;
+        predictButton.hidden = false;
+        liveClass.textContent = "Photo captured";
+        liveConfidence.textContent = "Review the image, then select Predict image.";
+        livePredictions.replaceChildren();
+        status.textContent = "Photo captured. Review it before prediction.";
+        requestInFlight = false;
+      }
+
+      function retakePhoto() {
+        capturedImage = undefined;
+        capturedPhoto.removeAttribute("src");
+        capturedPhoto.hidden = true;
+        video.hidden = false;
+        captureButton.hidden = false;
+        retakeButton.hidden = true;
+        predictButton.hidden = true;
+        liveClass.textContent = "Ready to scan";
+        liveConfidence.textContent = "Capture an item when it is centered in the preview.";
+        livePredictions.replaceChildren();
+        status.textContent = "Camera is on. Center an item and capture it.";
+      }
+
+      async function predictPhoto() {
+        if (!cameraStream || !capturedImage || requestInFlight) return;
+        requestInFlight = true;
+        predictButton.disabled = true;
+        status.textContent = "Analyzing captured photo...";
 
         try {
           const response = await fetch("{{ url_for('predict_frame') }}", {
@@ -211,7 +253,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               model: modelSelect.value,
-              image: canvas.toDataURL("image/jpeg", 0.72),
+              image: capturedImage,
             }),
           });
           const data = await response.json();
@@ -220,11 +262,12 @@
           liveClass.textContent = data.top_prediction.label;
           liveConfidence.textContent = `${data.top_prediction.percent}% confidence`;
           renderPredictions(data.predictions);
-          status.textContent = "Live detection is running.";
+          status.textContent = "Prediction complete. Retake to scan another item.";
         } catch (error) {
           status.textContent = error.message;
         } finally {
           requestInFlight = false;
+          predictButton.disabled = false;
         }
       }
 
@@ -235,6 +278,7 @@
         }
 
         try {
+          status.textContent = "Requesting camera access...";
           cameraStream = await navigator.mediaDevices.getUserMedia({
             video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 720 } },
             audio: false,
@@ -244,23 +288,36 @@
           placeholder.hidden = true;
           startButton.disabled = true;
           stopButton.disabled = false;
-          status.textContent = "Camera started. Connecting to the model...";
-          captureAndPredict();
-          captureTimer = window.setInterval(captureAndPredict, 1200);
+          captureButton.disabled = false;
+          retakePhoto();
+          status.textContent = "Camera is on. Center an item and capture it.";
         } catch (error) {
+          cameraStream?.getTracks().forEach((track) => track.stop());
+          cameraStream = undefined;
+          video.srcObject = null;
           status.textContent = "Camera permission was denied or no camera is available.";
         }
       }
 
       function stopCamera() {
-        window.clearInterval(captureTimer);
         cameraStream?.getTracks().forEach((track) => track.stop());
         cameraStream = undefined;
         video.srcObject = null;
+        video.hidden = false;
+        capturedPhoto.hidden = true;
+        capturedPhoto.removeAttribute("src");
+        capturedImage = undefined;
         placeholder.hidden = false;
         startButton.disabled = false;
         stopButton.disabled = true;
-        status.textContent = "Camera stopped.";
+        captureButton.disabled = true;
+        captureButton.hidden = false;
+        retakeButton.hidden = true;
+        predictButton.hidden = true;
+        liveClass.textContent = "Ready to scan";
+        liveConfidence.textContent = "Start the camera, capture an item, then predict.";
+        livePredictions.replaceChildren();
+        if (status.textContent !== "Camera is off.") status.textContent = "Camera stopped.";
       }
 
       fileInput.addEventListener("change", () => {
@@ -273,6 +330,9 @@
       cameraModeButton.addEventListener("click", () => setMode("camera"));
       startButton.addEventListener("click", startCamera);
       stopButton.addEventListener("click", stopCamera);
+      captureButton.addEventListener("click", capturePhoto);
+      retakeButton.addEventListener("click", retakePhoto);
+      predictButton.addEventListener("click", predictPhoto);
       window.addEventListener("beforeunload", stopCamera);
 
       window.addEventListener("beforeinstallprompt", (event) => {

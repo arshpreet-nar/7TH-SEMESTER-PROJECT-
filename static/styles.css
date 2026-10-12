@@ -89,11 +89,15 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .live-copy h2, .live-result h3 { margin: 0 0 10px; font-size: 1.55rem; line-height: 1.1; }
 .live-copy > p:not(.eyebrow):not(.camera-status) { margin: 0; color: var(--muted); line-height: 1.5; }
 .camera-controls { display: grid; grid-template-columns: 1fr 90px; gap: 9px; margin-top: 25px; }
+.capture-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 10px; }
+.capture-controls #capture-photo, .capture-controls #predict-photo { grid-column: 1 / -1; }
 .secondary-button { border: 1px solid var(--line) !important; background: white !important; color: var(--ink) !important; }
 .secondary-button:hover { background: #eff5f0 !important; }
 .camera-status { min-height: 42px; margin: 18px 0 0; color: var(--muted); font-size: 0.88rem; font-weight: 700; }
 .camera-stage { position: relative; min-height: 350px; overflow: hidden; background: #102d20; }
 .camera-stage video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.camera-stage img { display: block; width: 100%; height: 100%; object-fit: contain; background: #102d20; }
+.camera-stage video[hidden], .camera-stage img[hidden] { display: none; }
 .camera-placeholder { position: absolute; inset: 0; display: grid; place-items: center; background: var(--forest-dark); color: #d7eadc; font-size: 0.95rem; font-weight: 800; }
 .camera-placeholder span { border: 1px solid rgba(215, 234, 220, 0.45); border-radius: 7px; padding: 12px 15px; }
 .live-label { margin: 0 0 10px; color: var(--blue); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -111,6 +115,7 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   .metrics div { min-width: 0; }
   .workspace, .live-workspace { grid-template-columns: 1fr; }
   .camera-stage { min-height: 54vh; max-height: 640px; }
+  .camera-stage video, .camera-stage img { min-height: 54vh; max-height: 640px; }
 }
 
 @media (max-width: 540px) {
