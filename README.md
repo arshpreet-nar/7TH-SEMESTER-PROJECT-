@@ -76,10 +76,17 @@ either saved model from the `models/` folder.
 
 ## Live Camera Detection
 
-The web app also includes a **Live waste detection** section. Select a model,
-click **Start Camera**, allow browser camera permission, and point the camera at
-a waste item. The browser sends one compact frame roughly every 1.2 seconds and
-shows the five highest-confidence predictions.
+The camera view displays a live preview. Capture a still image, review it, and
+select **Predict image** to submit that image to the server. The app does not
+continuously classify the video stream. It shows up to five ranked category
+matches for each submitted image.
+
+If the highest model score is below the default 40% threshold, the app labels
+the result **Not confidently classified** and opens a popup with the best match
+and a photo retake suggestion. The ranked labels remain available as possible
+matches. This threshold is a prototype safeguard, not a calibrated measure of
+real-world correctness. Set `ECOSORT_MIN_CONFIDENCE` to a value from `0` to `1`
+to change it, then evaluate the chosen threshold using a separate held-out set.
 
 Camera access requires `localhost` during development or HTTPS after deployment.
 Render provides HTTPS for deployed web services.

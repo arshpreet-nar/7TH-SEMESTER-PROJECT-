@@ -81,9 +81,15 @@
             </div>
             <div class="summary">
               <p class="filename">{{ result.filename }}</p>
+              {% if result.verified %}
               <h2>{{ result.top_prediction.label }}</h2>
-              <p>{{ result.top_prediction.percent }}% confidence</p>
+              <p>{{ result.top_prediction.percent }}% model score</p>
+              {% else %}
+              <h2 class="unverified-title">Not confidently classified</h2>
+              <p>Best match: {{ result.top_prediction.label }} at {{ result.top_prediction.percent }}% ({{ result.threshold_percent }}% required)</p>
+              {% endif %}
             </div>
+            <p class="prediction-heading">{{ "Predicted categories" if result.verified else "Possible matches" }}</p>
             <div class="predictions">
               {% for prediction in result.predictions %}
                 <div class="prediction">
@@ -150,6 +156,14 @@
         </div>
       </section>
     </main>
+    <dialog id="unverified-dialog" class="notice-dialog" aria-labelledby="unverified-title" aria-describedby="unverified-message">
+      <div class="notice-content">
+        <p class="notice-kicker">LOW CONFIDENCE</p>
+        <h2 id="unverified-title">Image not confidently classified</h2>
+        <p id="unverified-message">This image did not reach the minimum confidence for any of the 12 supported categories. Try a clearer photo showing one item.</p>
+        <button type="button" id="close-unverified-dialog">View possible matches</button>
+      </div>
+    </dialog>
     <script>
       const uploadModeButton = document.getElementById("upload-mode-button");
       const cameraModeButton = document.getElementById("camera-mode-button");
@@ -173,6 +187,9 @@
       const liveClass = document.getElementById("live-classification");
       const liveConfidence = document.getElementById("live-confidence");
       const livePredictions = document.getElementById("live-predictions");
+      const unverifiedDialog = document.getElementById("unverified-dialog");
+      const unverifiedMessage = document.getElementById("unverified-message");
+      const closeUnverifiedDialog = document.getElementById("close-unverified-dialog");
       const installButton = document.getElementById("install-app");
       let cameraStream;
       let requestInFlight = false;
@@ -203,6 +220,15 @@
           `;
           return row;
         }));
+      }
+
+      function showUnverifiedDialog(topPrediction, thresholdPercent) {
+        unverifiedMessage.textContent = `The best match was ${topPrediction.label} at ${topPrediction.percent}%, below the ${thresholdPercent}% minimum. Try a brighter, closer photo with one item in view.`;
+        if (typeof unverifiedDialog.showModal === "function") {
+          unverifiedDialog.showModal();
+        } else {
+          window.alert(unverifiedMessage.textContent);
+        }
       }
 
       function capturePhoto() {
@@ -259,10 +285,13 @@
           const data = await response.json();
           if (!response.ok) throw new Error(data.error || "Prediction failed.");
 
-          liveClass.textContent = data.top_prediction.label;
-          liveConfidence.textContent = `${data.top_prediction.percent}% confidence`;
+          liveClass.textContent = data.verified ? data.top_prediction.label : "Not confidently classified";
+          liveConfidence.textContent = data.verified
+            ? `${data.top_prediction.percent}% model score`
+            : `Best match: ${data.top_prediction.label} at ${data.top_prediction.percent}% (below ${data.threshold_percent}% minimum)`;
           renderPredictions(data.predictions);
           status.textContent = "Prediction complete. Retake to scan another item.";
+          if (!data.verified) showUnverifiedDialog(data.top_prediction, data.threshold_percent);
         } catch (error) {
           status.textContent = error.message;
         } finally {
@@ -333,6 +362,10 @@
       captureButton.addEventListener("click", capturePhoto);
       retakeButton.addEventListener("click", retakePhoto);
       predictButton.addEventListener("click", predictPhoto);
+      closeUnverifiedDialog.addEventListener("click", () => unverifiedDialog.close());
+      unverifiedDialog.addEventListener("click", (event) => {
+        if (event.target === unverifiedDialog) unverifiedDialog.close();
+      });
       window.addEventListener("beforeunload", stopCamera);
 
       window.addEventListener("beforeinstallprompt", (event) => {
@@ -354,6 +387,9 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => navigator.serviceWorker.register("/service-worker.js"));
       }
+      {% if result and not result.verified %}
+      showUnverifiedDialog({ label: {{ result.top_prediction.label | tojson }}, percent: {{ result.top_prediction.percent | tojson }} }, {{ result.threshold_percent | tojson }});
+      {% endif %}
     </script>
   </body>
 </html>

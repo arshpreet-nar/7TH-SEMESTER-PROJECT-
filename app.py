@@ -15,6 +15,9 @@ BASE_DIR = Path(__file__).resolve().parent
 MODELS_DIR = BASE_DIR / "models"
 METADATA_PATH = MODELS_DIR / "metadata.json"
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
+MIN_CONFIDENCE = float(os.environ.get("ECOSORT_MIN_CONFIDENCE", "0.40"))
+if not 0 <= MIN_CONFIDENCE <= 1:
+    raise ValueError("ECOSORT_MIN_CONFIDENCE must be between 0 and 1.")
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024
@@ -60,6 +63,10 @@ def predict_image(image: Image.Image, model_name: str, top_k: int = 5) -> list[d
         }
         for index in top_indices
     ]
+
+
+def prediction_is_confident(predictions: list[dict]) -> bool:
+    return bool(predictions and predictions[0]["probability"] >= MIN_CONFIDENCE)
 
 
 def image_to_data_url(image: Image.Image) -> str:
@@ -116,6 +123,8 @@ def index():
                     "image": image_to_data_url(image),
                     "predictions": predictions,
                     "top_prediction": predictions[0],
+                    "verified": prediction_is_confident(predictions),
+                    "threshold_percent": round(MIN_CONFIDENCE * 100),
                 }
             except Exception as exc:
                 error = f"Could not classify this image: {exc}"
@@ -152,6 +161,8 @@ def predict_frame():
     return jsonify(
         top_prediction=predictions[0],
         predictions=predictions,
+        verified=prediction_is_confident(predictions),
+        threshold_percent=round(MIN_CONFIDENCE * 100),
     )
 
 

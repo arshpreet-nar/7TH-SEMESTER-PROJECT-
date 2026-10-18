@@ -71,8 +71,10 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .image-preview img { width: 100%; height: 100%; object-fit: contain; }
 .summary { display: grid; grid-template-columns: 1fr auto; gap: 6px 18px; align-items: end; margin: 18px 0; }
 .summary h2 { margin: 0; color: var(--forest); font-size: 2rem; text-transform: capitalize; }
+.summary h2.unverified-title { color: var(--danger); font-size: 1.35rem; text-transform: none; }
 .summary p { margin: 0; color: var(--muted); font-weight: 750; }
 .filename { grid-column: 1 / -1; overflow-wrap: anywhere; font-size: 0.82rem; }
+.prediction-heading { margin: 0 0 12px; color: var(--muted); font-size: 0.78rem; font-weight: 850; letter-spacing: 0.04em; text-transform: uppercase; }
 .predictions { display: grid; gap: 13px; }
 .prediction-label { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 6px; font-size: 0.9rem; font-weight: 800; text-transform: capitalize; }
 .bar { height: 9px; overflow: hidden; border-radius: 999px; background: #e6eee8; }
@@ -107,6 +109,14 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .classes p { flex: 0 0 auto; margin: 8px 0 0; color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
 .classes div { display: flex; flex-wrap: wrap; gap: 8px; }
 .classes span { border: 1px solid var(--line); border-radius: 999px; background: white; padding: 7px 11px; color: var(--muted); font-size: 0.85rem; font-weight: 700; text-transform: capitalize; }
+
+.notice-dialog { width: min(440px, calc(100% - 32px)); border: 1px solid var(--line); border-radius: 10px; padding: 0; color: var(--ink); box-shadow: 0 24px 80px rgba(12, 42, 28, 0.3); }
+.notice-dialog::backdrop { background: rgba(8, 28, 18, 0.62); }
+.notice-content { padding: 28px; }
+.notice-kicker { margin: 0 0 10px; color: var(--coral); font-size: 0.76rem; font-weight: 900; letter-spacing: 0.08em; }
+.notice-content h2 { margin: 0 0 10px; color: var(--forest-dark); font-size: 1.45rem; line-height: 1.2; }
+.notice-content p:not(.notice-kicker) { margin: 0 0 22px; color: var(--muted); line-height: 1.55; }
+.notice-content button { width: auto !important; min-width: 170px; padding: 0 18px; }
 
 @media (max-width: 840px) {
   .app-shell { width: min(100% - 24px, 1180px); padding-top: 12px; }
