@@ -1,8 +1,23 @@
+# Python
 __pycache__/
+*.py[cod]
 .venv/
-models/*
-!models/best_garbage_classifier.keras
-!models/garbage_classifier_final.keras
-!models/metadata.json
-!models/training_history.png
-*.pyc
+venv/
+*.egg-info/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local environment and editor files
+.env
+.vscode/
+.idea/
+
+# Temporary and operating system files
+*.tmp
+*.log
+~$*
+.DS_Store
+Thumbs.db
+
+# Keep trained model deliverables in version control.

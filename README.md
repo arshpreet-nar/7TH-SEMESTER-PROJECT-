@@ -1,128 +1,55 @@
-# Garbage Classification Deep Learning Project
+# EcoSort AI — Garbage Classification
 
-This project trains an image classifier on the `garbage_classification` folder.
-The dataset is arranged as one folder per class, so TensorFlow can load it
-directly.
+EcoSort AI is an image classification project that identifies common waste categories. It includes a trained TensorFlow model, a Flask web app with image upload and camera capture, the source dataset, and project presentation materials.
 
-## Dataset Classes
+## Project contents
 
-Current class counts:
+| Path | Purpose |
+| --- | --- |
+| `app.py` | Flask application and model inference |
+| `templates/` and `static/` | Web interface, styles, app icon, and offline support |
+| `models/` | Trained Keras models, class metadata, and training history |
+| `garbage_classification/` | Labeled image dataset and sample test images |
+| `garbage_classification_model.ipynb` | Model development notebook |
+| `Report/` | Final project report and college presentation |
+| `Output/` | Latest presentation output |
+| `project_archive/presentation-build/` | Preserved presentation source scripts and intermediate build assets |
 
-| Class | Images |
-| --- | ---: |
-| battery | 945 |
-| biological | 985 |
-| brown-glass | 607 |
-| cardboard | 891 |
-| clothes | 5325 |
-| green-glass | 629 |
-| metal | 769 |
-| paper | 1050 |
-| plastic | 865 |
-| shoes | 1977 |
-| trash | 697 |
-| white-glass | 775 |
+## Waste categories
 
-## Setup
+The training dataset has 12 class folders: battery, biological, brown-glass, cardboard, clothes, green-glass, metal, paper, plastic, shoes, trash, and white-glass. The `testing/` folder contains sample images and `expected_labels.csv` for reference.
 
-Install Python 3.10 or 3.11 first. Then run:
+## Requirements
+
+- Python 3.11 (the deployment configuration pins 3.11.9)
+- Packages listed in `requirements.txt`
+- The included model files in `models/`
+
+## Run locally
+
+In PowerShell, from the project root:
 
 ```powershell
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-```
-
-If your Python version is 3.10, replace `py -3.11` with `py -3.10`.
-
-## Train
-
-```powershell
-python train_model.py
-```
-
-The script uses MobileNetV2 transfer learning, validation split, early stopping,
-learning-rate reduction, and class weights because the dataset is imbalanced.
-Outputs are saved in `models/`:
-
-- `best_garbage_classifier.keras`
-- `garbage_classifier_final.keras`
-- `metadata.json`
-- `training_history.png`
-
-For a quicker test run:
-
-```powershell
-python train_model.py --epochs 2 --fine-tune-epochs 0
-```
-
-## Predict One Image
-
-```powershell
-python predict.py "garbage_classification\plastic\plastic1.jpg"
-```
-
-You can change the image path to any image you want to classify.
-
-## Run Web App
-
-```powershell
 python app.py
 ```
 
-Then open `http://127.0.0.1:5000` in your browser, upload an image, and choose
-either saved model from the `models/` folder.
+Open <http://127.0.0.1:5000>. The interface supports uploading an image or capturing a still image with a camera. Camera access requires `localhost` during local development or HTTPS after deployment. Set `ECOSORT_MIN_CONFIDENCE` to a value between `0` and `1` to adjust the low-confidence warning threshold (default: `0.40`).
 
-## Live Camera Detection
+## Deployment
 
-The camera view displays a live preview. Capture a still image, review it, and
-select **Predict image** to submit that image to the server. The app does not
-continuously classify the video stream. It shows up to five ranked category
-matches for each submitted image.
+The repository includes `render.yaml`, `runtime.txt`, `.python-version`, and `Procfile` for Render deployment. The service uses:
 
-If the highest model score is below the default 40% threshold, the app labels
-the result **Not confidently classified** and opens a popup with the best match
-and a photo retake suggestion. The ranked labels remain available as possible
-matches. This threshold is a prototype safeguard, not a calibrated measure of
-real-world correctness. Set `ECOSORT_MIN_CONFIDENCE` to a value from `0` to `1`
-to change it, then evaluate the chosen threshold using a separate held-out set.
+- Build: `pip install -r requirements.txt`
+- Start: `gunicorn --bind 0.0.0.0:$PORT app:app`
+- Python: `3.11.9`
 
-Camera access requires `localhost` during development or HTTPS after deployment.
-Render provides HTTPS for deployed web services.
+## Deliverables
 
-## Install on Mobile
+- [Project report](Report/EcoSort_AI_Professional_Project_Report_50_Page_Edition.pdf)
+- [Final presentation](Output/EcoSort_AI_Final_College_Presentation_with_logo_fixed.pptx)
 
-After deploying the site on Render, open its HTTPS URL on your phone. When the
-browser offers **Install app**, choose it. The app will appear on the home
-screen and opens in a standalone mobile view. Use **Use camera** to start the
-rear camera and classify waste in real time.
-
-If port `5000` is unavailable, start it on another port:
-
-```powershell
-$env:PORT = "7860"
-python app.py
-```
-
-## Deploy Live
-
-The app is ready for a Python web host such as Render. Push this project to
-GitHub, create a Render Web Service from the repository, and use:
-
-- Build command: `pip install -r requirements.txt`
-- Start command: `gunicorn --bind 0.0.0.0:$PORT app:app`
-- Runtime: Python 3.11
-
-This repository also includes `render.yaml`, `runtime.txt`, and
-`.python-version`, so Render can detect the service settings automatically from
-the repo.
-
-If Render logs show `Using Python version 3.14.3 (default)` and TensorFlow fails
-to install, set this environment variable in the Render dashboard and redeploy:
-
-- Key: `PYTHON_VERSION`
-- Value: `3.11.9`
-
-After changing the Python version, run a manual deploy with a cleared build
-cache.
+The project archive retains build scripts and intermediate visuals that may be useful for revising those deliverables. Python caches and temporary lock files are excluded from the project.

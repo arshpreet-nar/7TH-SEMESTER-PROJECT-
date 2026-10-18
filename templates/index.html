@@ -81,7 +81,7 @@
             </div>
             <div class="summary">
               <p class="filename">{{ result.filename }}</p>
-              {% if result.verified %}
+              {% if result.confident %}
               <h2>{{ result.top_prediction.label }}</h2>
               <p>{{ result.top_prediction.percent }}% model score</p>
               {% else %}
@@ -89,7 +89,7 @@
               <p>Best match: {{ result.top_prediction.label }} at {{ result.top_prediction.percent }}% ({{ result.threshold_percent }}% required)</p>
               {% endif %}
             </div>
-            <p class="prediction-heading">{{ "Predicted categories" if result.verified else "Possible matches" }}</p>
+            <p class="prediction-heading">{{ "Predicted categories" if result.confident else "Possible matches" }}</p>
             <div class="predictions">
               {% for prediction in result.predictions %}
                 <div class="prediction">
@@ -285,13 +285,13 @@
           const data = await response.json();
           if (!response.ok) throw new Error(data.error || "Prediction failed.");
 
-          liveClass.textContent = data.verified ? data.top_prediction.label : "Not confidently classified";
-          liveConfidence.textContent = data.verified
+          liveClass.textContent = data.confident ? data.top_prediction.label : "Not confidently classified";
+          liveConfidence.textContent = data.confident
             ? `${data.top_prediction.percent}% model score`
             : `Best match: ${data.top_prediction.label} at ${data.top_prediction.percent}% (below ${data.threshold_percent}% minimum)`;
           renderPredictions(data.predictions);
           status.textContent = "Prediction complete. Retake to scan another item.";
-          if (!data.verified) showUnverifiedDialog(data.top_prediction, data.threshold_percent);
+          if (!data.confident) showUnverifiedDialog(data.top_prediction, data.threshold_percent);
         } catch (error) {
           status.textContent = error.message;
         } finally {
@@ -387,7 +387,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => navigator.serviceWorker.register("/service-worker.js"));
       }
-      {% if result and not result.verified %}
+      {% if result and not result.confident %}
       showUnverifiedDialog({ label: {{ result.top_prediction.label | tojson }}, percent: {{ result.top_prediction.percent | tojson }} }, {{ result.threshold_percent | tojson }});
       {% endif %}
     </script>

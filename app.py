@@ -123,7 +123,7 @@ def index():
                     "image": image_to_data_url(image),
                     "predictions": predictions,
                     "top_prediction": predictions[0],
-                    "verified": prediction_is_confident(predictions),
+                    "confident": prediction_is_confident(predictions),
                     "threshold_percent": round(MIN_CONFIDENCE * 100),
                 }
             except Exception as exc:
@@ -161,7 +161,7 @@ def predict_frame():
     return jsonify(
         top_prediction=predictions[0],
         predictions=predictions,
-        verified=prediction_is_confident(predictions),
+        confident=prediction_is_confident(predictions),
         threshold_percent=round(MIN_CONFIDENCE * 100),
     )
 
