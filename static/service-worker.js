@@ -1,4 +1,4 @@
-const CACHE_NAME = "garbage-classifier-v1";
+const CACHE_NAME = "garbage-classifier-v2";
 const APP_SHELL = ["/", "/static/styles.css", "/static/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {

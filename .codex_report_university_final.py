@@ -23,10 +23,29 @@ REPORT.mkdir(exist_ok=True)
 SOURCE_PDF=SOURCE_BUILD/"eco_sort_letter_source.pdf"
 FRONT_PDF=SOURCE_BUILD/"front_matter_letter.pdf"
 SUPP_PDF=SOURCE_BUILD/"required_supplements_letter.pdf"
-OUT_PDF=REPORT/"Garbage_Classification_Deep_Learning_Project_Report_Updated.pdf"
-OUT_DOCX=REPORT/"Garbage_Classification_Deep_Learning_Project_Report_Updated.docx"
+OUT_PDF=REPORT/"Garbage_Classification_Deep_Learning_Project_Report_ImagesFixed.pdf"
+OUT_DOCX=REPORT/"Garbage_Classification_Deep_Learning_Project_Report_ImagesFixed.docx"
 PAGE_DIR=SOURCE_BUILD/"final_render"
 PAGE_DIR.mkdir(exist_ok=True)
+
+# Build a two-panel overview from the user's supplied real interface screenshots.
+shot_dir=BUILD/"user_screenshots"
+upload_img=PILImage.open(shot_dir/"upload-screen.png").convert("RGB")
+camera_img=PILImage.open(shot_dir/"camera-screen.png").convert("RGB")
+panel_w=1080; gap=36; label_h=72; pad=28
+panel_h=round(panel_w*upload_img.height/upload_img.width)
+montage=PILImage.new("RGB",(pad*2+panel_w*2+gap,pad*2+panel_h+label_h),(247,250,248))
+draw=ImageDraw.Draw(montage)
+try:
+    label_font=ImageFont.truetype(r"C:\Windows\Fonts\arialbd.ttf",38)
+except Exception:
+    label_font=ImageFont.load_default()
+for idx,(img,label) in enumerate([(upload_img,"UPLOAD A PHOTO"),(camera_img,"SCAN LIVE")]):
+    x=pad+idx*(panel_w+gap); y=pad+label_h
+    scaled=img.resize((panel_w,panel_h),PILImage.Resampling.LANCZOS)
+    montage.paste(scaled,(x,y))
+    draw.text((x,y-55),label,font=label_font,fill=(17,76,56))
+montage.save(shot_dir/"interface-comparison.png")
 
 # Rebuild the repository-authored report with the university paper and text settings.
 original=(ROOT/"project_archive"/"presentation-build"/"create_full_report.py").read_text(encoding="utf-8")
@@ -46,7 +65,7 @@ replacements=[
  ('preview.crop((72, 155, 620, 610)).resize((1096, 910)).save(BUILD / "upload_screen_detail.png")','preview.resize((1096, 910)).save(BUILD / "upload_screen_detail.png")'),
  ('preview.crop((660, 155, 1208, 610)).resize((1096, 910)).save(BUILD / "camera_screen_detail.png")','preview.resize((1096, 910)).save(BUILD / "camera_screen_detail.png")'),
  ('ROOT / "garbage_classification" / class_name','ROOT / "garbage_classification Dataset" / class_name'),
- ('add_image(BUILD/"slide-08.png", 170*mm, 115*mm)','add_image(BUILD/"upload_screen_detail.png", 165*mm, 112*mm)'),
+ ('add_image(BUILD/"slide-08.png", 170*mm, 115*mm)','add_image(ROOT/".codex_format_alignment"/"user_screenshots"/"interface-comparison.png", 165*mm, 74*mm)'),
  ('170*mm','165*mm'),
  ('fontName="Helvetica", fontSize=9.35, leading=14.1','fontName="Times-Roman", fontSize=12, leading=18'),
  ('fontName="Helvetica-Bold", fontSize=21, leading=25','fontName="Times-Bold", fontSize=18, leading=22'),
@@ -63,6 +82,8 @@ replacements=[
  ('PAGE_W-1.38*inch, PAGE_H-.61*inch','PAGE_W-.49*inch, PAGE_H-.61*inch'),
  ('add_image(BUILD/"upload_screen_detail.png", 162*mm, 145*mm)','add_image(ROOT/".codex_format_alignment"/"user_screenshots"/"upload-screen.png", 162*mm, 141*mm)'),
  ('add_image(BUILD/"camera_screen_detail.png", 162*mm, 145*mm)','add_image(ROOT/".codex_format_alignment"/"user_screenshots"/"camera-screen.png", 162*mm, 141*mm)'),
+ ("The figures below are interface previews reconstructed from the repository's HTML and JavaScript controls. They document the implemented design and workflow but are not screenshots captured from a running Flask/TensorFlow server. The example object image is from the project's dataset.","The following two screenshots, supplied by the project team on 24 November 2026, show the implemented photo-upload and Scan Live interface states. The upload screen is waiting for a photo; the camera screen shows camera ready while the camera is off. Neither image shows a completed prediction. Full-size captures are included in Chapters 30 and 31."),
+ ("Figure 12.1  EcoSort AI upload and camera interface previews. Upload flow includes model selection and category action; camera flow shows capture, review, and prediction states.","Figure 12.1. Overview of the team-supplied EcoSort AI upload and Scan Live interface screenshots, captured on 24 November 2026."),
  ("The following project-interface preview is derived from the implemented HTML/CSS interface and presentation capture. It illustrates the upload-oriented screen and is not a screenshot of a verified live hosted service.","The following screenshot was supplied by the project team on 24 November 2026. It shows the implemented upload screen before a photo is selected; it documents the interface state shown and does not demonstrate a completed prediction."),
  ("Figure 30.1. EcoSort AI upload screen preview. The user selects an image and requests server-side classification.","Figure 30.1. Team-supplied EcoSort AI upload-screen screenshot, captured on 24 November 2026."),
  ("This camera-screen preview shows the live preview and capture-oriented controls represented in the project interface. It documents the intended browser workflow, not evidence that a camera was active in the screenshot or that a particular host deployment was tested.","The following screenshot was supplied by the project team on 24 November 2026. It shows the Scan Live tab in its camera-ready state with the camera off; the screenshot does not show a captured item or prediction result."),
