@@ -1,0 +1,14 @@
+FILE front page 1 - Manpreet.docx | sections=1 paragraphs=15 tables=0 images=1
+SEC1 size 8.50x11.00 margins T/B/L/R 1.00/1.00/1.00/1.00 header/footer 0.50/0.50
+[Normal] PROJECT REPORT
+[Normal] TITLE OF THE PROJECT
+[Normal] Submitted in partial fulfillment of the
+[Normal] Requirements for the award of
+[Normal] Degree of Bachelor of Technology in
+[Normal] Computer Science Engineering
+[Normal] Submitted By
+[Normal] Name: Manpreet Kaur
+[Normal] University Roll No:1633511
+[Normal] SUBMITTED TO: Dr. Brijesh Bakariya
+[Normal] Department of Computer Science & Engineering
+[Normal] IK GUJRAL PUNJAB TECHNICAL UNIVERSITY CAMPUS, HOSHIARPUR

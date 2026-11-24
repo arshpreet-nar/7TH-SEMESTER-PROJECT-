@@ -1,0 +1,66 @@
+FILE sample  project report f.docx | sections=1 paragraphs=81 tables=3 images=0
+SEC1 size 8.50x11.00 margins T/B/L/R 0.98/0.49/1.38/0.49 header/footer 0.50/0.50
+[Normal] Chapter 1
+[Normal] Introduction
+[Normal] E-cops is a web based application which will be available for every citizen to lodge a complaint and report a crime even when user is in move. At present police department follows manual procedure which takes lot of time and citizen should follow different procedure to file a case, or give information on case which is reducing faith on police department in public. Using this application data maintenance, generation of reports, analysis of data, planning and coordination will be fast and easy.
+[Normal] This system is made available to public for interaction with police indirectly. This system registers the complaints from people through online and is helpful to the police department in catching criminals. In this system any person can give any complaint anytime. The aim of this project is to develop an E-cops reporting and management system which is easily accessible to the public, police department and the administrative department.
+[Normal] 1.1 Objective
+[List Paragraph] Objective of the project is to produce an automated, interactive and fast website through which a normal citizen could interact with the police department.
+[List Paragraph] This site would be an easy and mobile approach of filing an FIR.
+[List Paragraph] 1.2 Existing System
+[Normal] The normal public in India are afraid to give complaint in police station because they are filled with a false fear about the police department. An online complaint registering system will solve the fears of public and will also help the police department in catching criminals. It also reduces corruption.
+[List Paragraph] 1.3 Proposed System
+[List Paragraph] The aim of proposed system is to develop a system of improved facilities. The proposed system can overcome all the limitations of the existing system. An online solution is very useful as the solution is inherently distributive. This distributive characteristic of the online solution helps in getting the different police stations to share information and get in contact with one another.
+[List Paragraph] Information about the criminals and the police is also made available to the public in this system.
+[List Paragraph] Public can check their complaint status online without going to police station.
+[List Paragraph] 1.4Modules
+[Normal] In this project, there are three module i.e.
+[List Paragraph] Admin
+[List Paragraph] Police Officer
+[List Paragraph] User
+[List Paragraph] Admin:Higher authorities like VIP’S, CP and DCP can view the complaints which are sent by the public. The administrator has to login with their account in order to perform his actions. The administrator can also send cautions to the users. Unlike police who can view complaints specific to his area, the administrator can view the complaints universally. Admin view the feedback given by user.
+[Heading 2] Police Officer: Basing on the complaints given by the public, police can view them and take appropriate action timely. The police has to login with their account to view the complaints and to send the status of the complaints to the users. They can update the status of the complaint basing on the progress of investigation. They will also receive alerts from the higher authorities regarding warnings and can take action in advance.
+[List Paragraph] User: User can send the complaints to police and they can view the complaint report.  User can perform these tasks only when he logins to his account otherwise he has to register his new account. Police send the status report to the users based on their investigation.  The user can check the status of their complaints with the help of complaint id given. The user can register his complaints to the police and view the thieves’ information.
+[Normal] Chapter 2
+[Normal] Tools and Technology Used
+[Normal] Table 2.1: Tools & Technologies
+[Normal] 2.1 Programming Language
+[Normal] Java
+[Normal] Java is a programming language and a platform. Java is a high level, robust, secured and object-oriented programming language.
+[Normal] Platform: Any hardware or software environment in which a program runs, is known as a platform. Since Java has its own runtime environment (JRE) and API, it is called platform.
+[Normal] Features of Java
+[Normal (Web)] There is given many features of java. They are also known as java buzzwords. The Java Features given below
+[Normal] Chapter 6
+[Normal] Conclusions and Future Scope
+[Normal] 6.1 CONCLUSION
+[Normal] The system has been developed for the given condition and is found working effectively. The developed system is flexible and changes can be made easily whenever required. Using the facilities and functionalities of jsp, the software has been developed in a neat and simple manner, thereby reducing the operator’s work.
+[Normal] The speed and accuracy are maintained in proper way. The user-friendly nature of this software developed in JSP framework is very easy to work with both the higher management as well as other users with little knowledge of computer. The results obtained were fully satisfactory from the user point of view.
+[Normal] The system was verified with valid as well as invalid data in each manner. The system is run   with an insight into the necessary modifications that may be required in the future. Hence the system can be maintained successfully.
+[Normal] The project has been completed successfully with the maximum satisfaction of the organization. The constraints are met and overcome successfully. The system is designed as like it was decided in the design phase. The project gives good idea on developing a full-fledged application satisfying the user requirements
+[Normal] 6.2 FUTURE SCOPE
+[Normal] Completion of development process will result in a software package that will provide user-friendly environment, which is very easy to work with, even for people with very little knowledge of computer.
+[Normal] Management of various tasks is incorporated in the package and will deliver the required information in a very easy to access manner.
+[Normal] This package will provide accuracy, efficiency, speed and easiness to the end user. Since the system is verified with valid as well as invalid data and is run with an insight into the necessary modifications that may require in the future, it can be maintained successfully without much.
+[List Paragraph] Maintain a centralized database to provide information which can be accessed by the administrator, police officers and citizens.
+[List Paragraph] Classification of the users according to their role. Users can manage their profile and also view details of their case.
+[List Paragraph] The citizens can provide information about their maids and tenants to the local police station through the website.
+[Normal] REFERENCES
+[List Paragraph] Bates Bert and Sierra Kathy, Head First Servlets and JSP , USA, January 2004.
+[List Paragraph] Sharma Anshuman, Fundamental of DBMS, India, 2007.
+[List Paragraph] Findley, Rowe. “Mount St. Helens Aftermath.” National Geographic, December 1981,                         p. 713-733.
+[List Paragraph] Jalandhar Police Official Website :
+[List Paragraph] http://www.jalandharpolice.com .
+[List Paragraph] Kumar Pawan, Interview, Sun Infocom  Jalandhar, Punjab, 12 April 2010.
+TABLE 1
+TOOLS | TECHNOLOGIES
+TABLE 2
+LANGUAGE USED | JAVA
+CLIENT SIDE | AJAX,JS,HTML,CSS
+SERVER SIDE | JSP,SERVLET
+FRAMEWORK | MVC
+WEB SERVER | Apache Server 2.1.7
+BACK-END | MYSQL
+TABLE 3
+PROCESSOR | Celeron M or Higher
+RAM | 512 MB or higher
+HARD DISK | 80 GB or higher

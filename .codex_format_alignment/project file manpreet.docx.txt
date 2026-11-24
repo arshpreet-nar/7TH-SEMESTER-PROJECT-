@@ -1,0 +1,209 @@
+FILE project file manpreet.docx | sections=2 paragraphs=465 tables=2 images=50
+SEC1 size 8.50x11.00 margins T/B/L/R 0.98/0.49/1.38/0.49 header/footer 0.50/0.50
+SEC2 size 8.50x11.00 margins T/B/L/R 0.98/0.49/1.38/0.49 header/footer 0.50/0.50
+[Normal] Chapter – 1
+[List Paragraph] Introduction
+[Normal] The most popular forms of coding in these days is the generation of applications or apps, that can easily run on our mobile phones on any environment like android, windows or IOS. Now days, the technology is improving drastically. It is being used in every sphere of life. None of the field is left untouched by the growing influence of these mobile applications. The hardware and software capabilities of phones have been improving fastly . We are able to think that the current mobile phones are as strong as computers and even they are able to compete with computers.
+[Normal] 1.2 Objective
+[Normal] The major objective to automate the existing leave management in educational institutes to decrease the paperwork and enable the process with efficient, reliable record maintenance by using centralized database, thereby reducing chances of data loss. To provide for an automated leave management system that intelligently adapts to HR policy of the organization and allows employees and their line managers to manage leaves and replacements for better scheduling of work load & processes.
+[Normal] 1.3 Scope
+[Normal] The scope of the project is the system on which the software is installed, i.e. the project is developed as a desktop application, and it will work for a particular financial institute. And it is used world wide.
+[Normal] 1.4 Existing System
+[Normal] In existing system, the records are manually maintained by the administrative user. The attendance is carried out in the form of hand written registers. It is a difficult job to maintain the record for the user. The human effort is more. This system requires correct feed on input into the respective field. Suppose wrong inputs are entered, the application could get misunderstood and rejected. So the user finds it difficult to use. The existing system is not user friendly because the retrieval of data is time consuming and data is not maintained efficiently. These systems need to be handling by a specialist for maintaining and updating the system which can again be very costly. It requires more calculations to generate the report so it is generated at the end of the session. All calculations to generate report is done manually so there is some greater chance of errors. The faculty has to suffer a lot through the calculation and if there is a loss of some report then it may cause lots of issues. In the existing Leave Record Management System, every College/ Department follows manual procedure in which faculty enters information in a record book. At the end of each month/session, Administration Department calculates leave/s of every member which is a time taking process and there are chances of losing data or errors in the records.
+[Normal] 1.5 Proposed System
+[Normal] In proposed system chances of data losing is not possible because data is maintained in the form of database and digitalization of student’s information. Every day attendance, leaves and notices information is updated in to database using a user friendly GUI. This application is an online application which makes more flexible to access information. In case, if there is some holiday, then the data is being updated automatically under well-defined graphical user interface and thus this software also makes the work load less for the department and management class as well as make easy access to the information for the authorized persons. The proposed system automates the existing system. It decreases the paper work and easier record maintenance by having a Database for leaves maintenance. The Leave Management System reduces the over work and time duration. It provides a easy, maintained and systematic environment for the higher panel (HOD/Faculty) for the approval of leave. This is a systematic approach that follow a sequence for the leave approval, this will result low overhead of work.
+[Normal] 1.6Advantages
+[Normal] Features of our application are as follows: -
+[List Paragraph] Our application mainly focuses on the fair distribution of attendance among students. It provides all the related details of working days, holidays, events & workshops taking place in the college.
+[List Paragraph] It provides overall as well as weekly attendance of student. Parents, faculties and students can get easily updated about their attendance status.  Students can easily upload their leave applications online just on one click.
+[List Paragraph] The application will directly go to the concerned faculty and respective coordinators of student. This will eliminate the redundant paper work. The application will also take the approval of parents of students to check the originality of leave application.
+[List Paragraph] This will reduce the frauds in application. Thus, a proper and fair distribution of attendance will be given to each and every student. A student thus will not be able to do unethical and wrong things.
+[List Paragraph] A proper section for attachments will be provided which will allow students to attach their medical and other documents. Application is quite helpful for maintaining records of students and helps in keeping an eye on the status of the records.
+[Heading 5] 1.7Disadvantages
+[Heading 5] Student can’t edit their application once sent. It would require admin to change the data.
+[Normal (Web)] It requires large database.
+[Normal] Chapter-2
+[Normal] 2.1 IDENTIFICATION OF NEED
+[Normal] Leave Management System is very convenient to implement, easy to understand and also easy on implementation. The need of designing such Software is to provide HR& Administrations better way for scheduling &balancing work load by maintaining leave details of the staff .It reduces the human efforts of checking the papers for leave request manually and maintaining it in folders and files.
+[Normal] 2.2FEASIBILITYSTUDY
+[Normal] Feasibility studies aim to objectively and ect. Generally, feasibility studies precede technical development and project implementation. Trationally uncover the strengths and weaknesses of the existing system or proposed venture. In its simplest term, the two criteria to judge feasibility are cost required and value to be attained. As such, a well-designed feasibility study should provide historical background of the projhe assessment of feasibility study is based on the following factors:
+[Normal] 1) Technical Feasibility
+[Normal] 2) Economic Feasibility
+[Normal] 3) Operational Feasibility
+[Normal] 2.2.1 TECHNICAL FEASIBILITY:
+[Normal] Generally, feasibility studies precede technical development and project implementation. The assessment is based on a system requirement in terms of Input, Processes, Output, Fields, Programs, and Procedure .This can be quantified in terms of volumes of data, trends, frequency of updating, etc., in order to estimate whether the new system will perform adequately or not. Technological feasibility is carried out to determine the capability, in terms of software, hardware, personnel and expertise, to handle the completion of the project. When writing feasibility report the following should be taken to consideration:
+[Normal] A brief description of the business the part of the business being examined. The human and economic factor The possible solutions to the problems
+[Normal] 2.2.2 ECONOMIC FEASIBILITY
+[Normal] Economic analysis is the most frequently used method for evaluating the effectiveness of a new system. More commonly known as cost/benefit analysis, the procedure is to determine the benefits and savings that are expected from a candidate system and compare them with costs. An entrepreneur must accurately weigh the cost versus benefits before taking an action.
+[Normal] 2.2.3 OPERATIONAL FEASIBILITY:
+[Normal] Operational feasibility is a measure of how well a proposed system solves the problems, and takes advantage of the opportunities identified during scope definition and how it satisfies the requirements identified in the requirements analysis phase of system development
+[Normal] The operational feasibility of the system can be checked as it solves the problems and reduces the complications occurring in the paper-pencil test.
+[Normal] 2.2.4 CONCLUSION OF FEASIBILITY STUDY:
+[Normal] 1) Technical Feasibility: The system can be implemented using computer software& hardware.
+[Normal] 2) Economic Feasibility: The System implementation is economical if implemented for large/medium organization which can bear the cost of maintaining computer and server cost.
+[Normal] 3) Operational Feasibility: The system efficiently operates & reduces manual computation and time of processing, reducing cost of paperwork and human errors.
+[Normal] Chapter 3
+[Normal] 3. Software Tools and Technology
+[Normal] 3.1 Introduction to Xampp server
+[Normal (Web)] XAMPP is an open source free software developed by Apache friends. XAMPP software package contains Apache distributions for Apache server, MariaDB, PHP, and Perl. And it is basically a local host or a local server. This local server works on your own desktop or laptop computer. You can just install this software on your laptop or desktop and test the clients or your website before uploading it to the remote web server or computer. This XAMPP server software gives you suitable environment for testing MYSQL, PHP, Apache and Perl projects on the local computer.
+[Normal (Web)] The full form of XAMPP is X stands for Cross-platform, (A)Apache server, (M)MariaDB, (P)PHP and (P)Perl. The Cross-platform usually means that it can run on any computer with any operating system.
+[Normal (Web)] Next MariaDB is the most famous database server and it is developed by MYSQL team. PHP usually provides a space for web development. PHP is a server-side scripting language. And the last Perl is a programming language and is used to develop a web application.
+[List Paragraph] Cross platform- Xampp is cross-platform.
+[List Paragraph] Cross-platform means it can be run on any computer machine and with any operating software or it is compatible with all types of computer hardware and software.
+[List Paragraph] A: Apache server: Xampp ncludes Apache server.
+[Normal] This server is required for running most of the application or software like PHP. It is the
+[Normal] Most unable webserver software across the world. It is popular because it is quick, reliable
+[Normal] and safe. It is open source and free to use.
+[List Paragraph] M: Maria DB: Xampp supports Maria DB. Maria DB is the popular database server which is open source and developed by original developers of MySQL.
+[List Paragraph] P: PHP– Xampp support the PHP.
+[Normal] PHP stands for PHP Hypertext Processor (earlier it was known as Personal Home Page), It
+[Normal] Provides an environment for web development. This is a server- side scripting language.
+[List Paragraph] P: PERL – Xampp support PERL.
+[Normal] PERL(Practical extraction and reporting language) is a high-level general purpose programming language. It is used in developing the web application.
+[Normal] 3.1.1What does Xampp server includes?
+[List Paragraph] When you start the Xampp server you see the various stuff explained below.
+[List Paragraph] Apache: This is the most popular web server on the web which actually processes and supply the web content to the computer.
+[List Paragraph] MySQL: This functionality would be encapsulated with all the simple and complicated web application.
+[List Paragraph] This is always there for storing the data. MYSQL is the most popular database to work with. It is a free & open source.
+[List Paragraph] You can easily learn MYSQL associated with XAMPP package and well work with PHP.
+[List Paragraph] Filezilla: It is an FTP(file transfer protocol) server used for making smooth file transfer from local server to live server and vice…
+[List Paragraph] Mercury: it is a simple and open source mail server.
+[List Paragraph] Tomcat: It is a freeware Java servlet for serving the Java application.
+[List Paragraph] Apache and MYSQL are the best stuff for the beginners especially working with PHP application.
+[List Paragraph] Though it is enough to play around these two until you are working on localhost.
+[Normal] 3.1.2What are the benefits of Xampp server
+[List Paragraph] Both servers have their equal importance, as a live server is used to keep our website data and make it live or visible to all the users across the world. But we can’t perform more testing work on the live server as it can create a massive traffic and load to the live server thus may result in a hang or stuck our website. So for testing work or update work for our website we need a server similar to our live server(live server also have Xampp or Wamp installed). So Xampp is the best option for achieving this. So for testing work or update work for our website we need a server similar to our live server(live server also have Xampp or Wamp installed). So Xampp is the best option for achieving this.
+[List Paragraph] It is an open source software and you can easily download and install it on your local machine.
+Once you install this on your local machine then you can perform any number of test or updations to your website.
+[List Paragraph] 3.1.3How to install xampp server
+[List Paragraph] It is very simple to install the Xampp server.
+[List Paragraph] You can download the setup over the internet and after downloading the setup you can easily install it on your local machine.
+[List Paragraph] You can go through the below links for the same. Just copy the link and paste in the browser.
+[Normal (Web)] 3.2Introduction To HTML
+[Normal (Web)] One language that is specially designed to convert the simple text into Hypertext is                 known as Hypertext Markup Language (HTML). HTML is the collection of some codes (typically known as tags) that have some special meanings. Each HTML tag has a proper effect on the simple text. Any HTML document is fully portable and can be understood by any browser.
+[Normal (Web)] 3.2.1Features of HTML:
+[Normal (Web)] It is the language which can be easily understood and can be modified.
+[Normal (Web)] It provides the more flexible way to deign web pages along with the text.
+[Normal (Web)] Links can also be added to the web pages so it helps the readers to browse the information of their interest.
+[Normal (Web)] We can display HTML documents on any platforms such as Windows and Linux etc.
+[Normal (Web)] We can insert images, links and relative paths from the Workspace.
+[Normal (Web)] Graphics ,videos and sounds can also be added to the web pages which give an extra attractive look to your web pages.
+[Normal (Web)] 3.3Introduction To PHP
+[Normal (Web)] PHP (recursive acronym for PHP: Hypertext Preprocessor) is a widely-used open source general-purpose scripting language that is especially suited for web development and can be embedded into HTML. PHP is a server side scripting language that is embedded in HTML. It is used to manage dynamic content, databases, session tracking, even build entire e-commerce sites. It is integrated with a number of popular databases, including MySQL ,Oracle, Sybase and Microsoft SQL Server.
+[Normal (Web)] 3.3.1Common uses of PHP:
+[Normal (Web)] PHP can handle forms, i.e. gather data from files, save data to a file, thru email you can send data, return data to the user.
+[Normal (Web)] You add, delete, modify elements within your database thru PHP.
+[Normal (Web)] Access cookies variables and set cookies.
+[Normal (Web)] Using PHP, you can restrict users to access some pages of your website.
+[Normal (Web)] 3.3.2Usage
+[Normal (Web)] PHP is a general-purpose scripting language that is especially suited to server-side web development where PHP generally runs on a web server. Any PHP code in a requested file is executed by the PHP runtime, usually to create dynamic web page content or dynamic images used on Web sites or elsewhere. It can also be used for command-line scripting and client-side GUI applications. PHP can be deployed on most Web servers, many operating systems and platforms, and can be used with many relational database management systems (RDBMS). It is available free of charge, and the PHP Group provides the complete source code for users to build, customize and extend for their own use.
+[Normal (Web)] PHP acts primarily as a filter, taking input from a file or stream containing text and/or PHP instructions and outputting another stream of data; most commonly the output will be HTML. Since PHP 4, the PHP parser compiles input to produce code for processing by the Zend Engine, giving improved performance over its interpreter predecessor.
+[Normal (Web)] 3.4Introduction To CSS
+[Normal (Web)] Cascading Style Sheets, fondly referred to as CSS, is a simple design language intended to simplify the process of making web pages presentable.CSS handles the look and feel part of a web page. Using CSS, you can control the color of the text, the style of fonts, the spacing between paragraphs, how columns are sized and laid out, what background images or colors are used, layout designs, and variations in display for different devices and screen sizes as well as a variety of other effects.
+[Normal (Web)] CSS is easy to learn and understand but it provides powerful control over the presentation of an   HTML document. Most commonly, CSS is combined with the markup languages HTML or XHTML.
+[Normal (Web)] 3.5 Introduction To JQuery
+[Normal (Web)] The purpose of jQuery is to make it much easier to use JavaScript on your website. jQuery is a lightweight, "write less, do more", JavaScript library. The purpose of jQuery is to make it much easier to use JavaScript on your website. jQuery takes a lot of common tasks that require many lines of JavaScript code to accomplish, and wraps them into methods that you can call with a single line of code. jQuery also simplifies a lot of the complicated things from JavaScript, like AJAX calls and DOM manipulation.
+[Normal (Web)] 3.6Introduction To Javascript
+[Normal (Web)] In spite of the similarity of names, JavaScript is not Java. The languages are not related. Java is frequently used to program games, mobile phones, and other devices, such as the Amazon Kindle. Although Java can be used in websites, it's rarely used that way.
+[Normal (Web)] JavaScript, on the other hand, is a lightweight, yet powerful language that normally runs inside a web browser. Its role is to provide access to different elements of the page so that they can be removed or updated. It can also create new elements, change the style of existing elements, or extract information from them.
+[Normal (Web)] 3.7Introduction To SQL
+[Normal (Web)] SQL (Structured Query Language) is a computer language used to store, manipulate, and retrieve data stored in databases. The first manifestation of SQL appeared in 1974, when a group in IBM developed the first sample of a relational database. The first commercial relational database was released by Relational Software. Standards for SQL exist. However, the SQL that can be used on each one of the major RDBMS today is in different flavors.
+[Normal (Web)] SQL is short for Structured Query Language and is a widely used database language, providing means of data manipulation (store, retrieve, update, delete) and database creation.
+[Normal (Web)] Almost all modern Relational Database Management Systems like MS SQL Server, Microsoft Access, MSDE, Oracle, DB2, Sybase, MySQL, Postgres and Informix use SQL as standard database language. Now a word of warning here, although all those RDBMS use SQL, they use different SQL dialects. For example MS SQL Server specific version of the SQL is called T-SQL, Oracle version of SQL is called PL/SQL, MS Access version of SQL is called JET SQL, etc.
+[Normal] Chapter 4
+[Normal] 4.Data Flow Diagram
+[Normal] It is a way of expressing system requirement in a graphical form; this leads to a modular design. It is also known as buble chart, has the purpose of clarifying system requirements and identifying major transformations that will become program in system design. So it is the starting point of the design phase that functionally decomposes the requirement specifications down to the lowest level of details. A DFD consist of a series of bubbles joined by lines. The bubbles represent data transformation and the lines represent data flows in the system.
+[Normal] 4.1 DFD SYMBOLS
+[Normal] 4.2Data Flow Diagram
+[Normal] a) Admin
+[Normal] Admin Level 0:-
+[Normal] Fig:1 Admin DFD Login
+[Normal] Admin Level 1:-
+[Normal] Fig:2 Admin Level 1
+[Normal] Admin Level 2:-
+[Normal] Fig: 3 Admin level 2
+[Normal] b) H.O.D
+[Normal] HOD Level 0:-
+[Normal] Fig:4 HOD level 3
+[Normal] HOD Level 1:-
+[Normal] Fig: 5 HOD level 1
+[Normal] c) Staff
+[Normal] Staff Level 0:-
+[Normal] Fig: 6 Staff level 0
+[Normal] Staff Level 1:-
+[Normal] Fig: 7 Staff level 1
+[Normal] d) Student
+[Normal] Student Level 0:-
+[Normal] Fig: 8 Student level 0
+[Normal] Student Level 1:-
+[Normal] Fig: 9 Student level 1
+[Normal] Chapter:5
+[Normal] 5.2 Snapshots
+[Normal] a) Admin
+[Normal] Fig: 10 Admin Login
+[Normal] Fig:11 Admin Panel
+[Normal] Fig:12 Add HOD
+[Normal] Fig:13 View HOD
+[Normal] Fig:14 View HOD Leave Record
+[Normal] Fig:15  View Staff  Record
+[Normal] Fig:16 View Staff Leaves
+[Normal] Fig:17 View Students Record
+[Normal] b) HOD Panel
+[Normal] Fig:18 HOD Login
+[Normal] Fig: 19 HOD Panel
+[Normal] Fig:20 Add Staff
+[Normal] Fig:21 View Staff
+[Normal] Fig:22 View Staff Leaves
+[Normal] Fig:23 Apply For Leave
+[Normal] Fig: 24 View Own Leave
+[Normal] c) Staff Panel
+[Normal] Fig:25 Staff Login
+[Normal] Fig:26 Staff Panel
+[Normal] Fig: 27 Add Students
+[Normal] Fig:28 View All Students
+[Normal] Fig: 29 View All Students Leaves
+[Normal] Fig:30 Apply For Leave
+[Normal] Fig:31 View Own Leaves
+[Normal] Fig: 31 View Own Approved Leaves
+[Normal] Fig: 32 View Own Pending Leaves
+[Normal] d) Student Panel
+[Normal] Fig: 33 Student Login
+[Normal] Fig: 34 Student Panel
+[Normal] Fig: 35 Student Panel
+[Normal] Fig: 36 Apply For Leave
+[Normal] Fig: 37 View Own Leaves
+[Normal] Fig: 38 View Own Pending Leaves
+[Normal] Fig:39 View Own Approved Leaves
+[Normal] Chapter-6
+[Normal] 6.1 Data Base Snapshots
+[Normal] Fig:40 Login Table
+[Normal] Fig:41 Admin Table
+[Normal] Fig:42 HOD Table
+[Normal] Fig:43 Staff Table
+[Normal] Fig:44 Student Table
+[Normal] Fig: 45 Leave Table
+[Normal] Chapter-7
+[Normal] 7.1CONCLUSION
+[Normal] Further up gradation of the Leave Management System for various types of organizations with multiple hierarchies can help in reducing paperwork, help achieve error free tabulation and calculation of leaves.
+[Normal] 7.2LIMITATION:
+[List Paragraph] The leave status cannot be cleared until and unless the HOD approves/ rejects the application.
+[List Paragraph] The staff cannot cancel the leave application once made.
+[List Paragraph] The system will not function properly with multiple computers in the network.
+[List Paragraph] The system will fail if the server fails, but the data will remain stored in the database
+[List Paragraph] Chapter-8
+[Normal] FUTURE SCOPE:
+[Normal] The leaves that have not been availed by the staff in the given session can be automatically carried forward to the next working session depending on the HR policy of the organization. Every employees individual leave record can be tabulated in a pie chart format to ascertain his/her performance during the working session for HR appraisal activity.
+[Normal] The summarized data generated by this system can be further provided to different departments, for example, Finance, Accounts for direct calculation of salaries. If personal data is fed into the system while creating employee profiles, single interface to ascertain information such as no. of years worked, birthdays, notice period, promotions, can be availed at a single point by the HOD.
+[Normal] Chapter-9
+[Normal] BIBLIOGRAPHY
+[Normal] Websites:
+[Normal] http://csharp.net-informations.com
+[Normal] http://msdn.microsoft.com
+[Normal] http://net-informations.com
+TABLE 1
+1.8 Modules of Automation Leave System: / Admin Module: Managing the detail of all other modules. / HOD Module: Managing the staff of campus. HOD can add new staff and delete or update the staff. He can also approve or disapprove the staff leave additionally he can also apply for his own leave and his leave will approve or disapprove by admin. / Staff Module: Managing the student detail. Teacher can add new student and delete or update the student. He can also approve or disapprove the student’s leave additionally he can also apply for his own leave and his leave will approve or disapprove by HOD. / Student Modules: view his own leave (approved or disapproved or pending), apply for leave and his leave will approve or disapprove by teacher. /  /  / . /  |  /   /  
+TABLE 2
+ | Process / Transform of incoming data flow(s) to outgoing flow(s).
+ | DatFlow / Movement of data in the system. |  
+ | DataStore / Data repositories for data that are not moving. It may be as simple as a buffer or a queue or a s sophisticated as a relational database.  | 
+ | ExternalEntity / Sources of destinations outside the specified system boundary. | 

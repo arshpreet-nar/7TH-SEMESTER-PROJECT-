@@ -1,0 +1,62 @@
+FILE Table of Contents 3.docx | sections=1 paragraphs=15 tables=3 images=0
+SEC1 size 8.27x11.69 margins T/B/L/R 0.98/0.49/1.38/0.49 header/footer 0.49/0.49
+[Normal] Table of Contents
+[Normal] List of Figure
+TABLE 1
+ / CHAPTER           NO. /  /  |  / TOPIC /  |  / PAGE NO.
+CHAPTER-1 | Introduction /   1.1  Objective /   1.2  Scope of project /   1.3  Existing System /   1.4  Proposed System /   1.5  Advantage	 /   1.6  Disadvantage /   1.7  Module Of Campus Recruitment System /          1.7.1 Admin /          1.7.2 Company /          1.7.3 Student /          1.7.4 College |             1-6 /               1 /               2 /               2 /               2 /               2 /               3 /               3 /             3-6 / 
+CHAPTER-2 | Feasibility Study /   2.1  Operation Feasibility /   2.2  Technical Feasibility /   2.3  Economical Feasibility /   2.4 Cost Feasibility /  |             7-10 /               7 /               8 /               9 /              10
+CHAPTER-3 | Tools & Technology  Used /   3.1  Introduction to HTML /           3.1.1Features of HTML /   3.2  Introduction to PHP /           3.2.1 Common Uses Of  PHP /           3.2.2  Usage	 /    3.3  Introduction to CSS /    3.4  Introduction to  JQUERY /    3.5  Introduction to JavaScript /    3.6  Introduction to SQL |              11-14 /                 11 /                  /              11-12 /                  /  /                  12 /                  13 /                  13 /                  13 /               13-14
+CHAPTER-4 | Data Flow Diagram /  |               15-23
+CHAPTER-5 | Screenshots of Database /  |               24-29
+CHAPTER-6 | Screenshots of Project /  |               30-47
+CHAPTER-7 | Conclusion and Future Scope /   7.1 Conclusions /    7.2 Further and Future Scope |               48-49
+CHAPTER-8 | References |                 50
+TABLE 2
+FIGURE NO. | TOPIC	 | PAGE NO.
+FIGURE 4.1 | Introduction to Data Flow Diagram |   16-17
+FIGURE 4.2 | DFD Level-0 for Admin |     18
+FIGURE 4.3 | DFD Level-1 for Admin |     18
+FIGURE 4.4 | DFD Level-2 for Admin |     19
+FIGURE 4.5 | DFD Level-0 for Company |     19
+FIGURE 4.6 | DFD Level-1 for Company |     20
+FIGURE 4.7 | DFD Level-2 for Company |     20
+FIGURE 4.8 | DFD Level-0 for College |     21
+FIGURE 4.9 | DFD Level-1 for College |     21
+FIGURE 4.10 | DFD Level-0 for Student |     22
+FIGURE 4.11 | DFD Level-1 for Student |     22
+FIGURE 4.12 | DFD Level-2 for Student |     23
+FIGURE 6.1 | (a) Admin Login |     30
+ | (b)Add Company |     30
+ | (c) View Company |     31
+ | (d) View All Vacancies |     31
+ | (e) Add Colleges |     32
+ | (f) Add Students |     32
+ | (g) View All Students |     33
+ | (h)View Hire Students |     33
+ | (i) Change Password |     34
+FIGURE 6.2 | (a) Company Login |     34
+ | (b) Add job Category |     35
+ | (c) Post Vacancy |     35
+ | (d) Post Vacancy |     36
+ | (e) Manage Vacancy |     36
+ | (f) Update vacancy |     37
+ | (g) View All Students |     37
+ | (h) View Applications |     38
+ | (i) Change Password |     38
+FIGURE 6.3 | (a) Student Login |     39
+ | (b) View Job/Vacancy |     39
+ | (c) View Job /vacancy |     40
+ | (d) View Job Detail |     40
+ | (e) Apply Form |     41
+ | (f) Apply form |     41
+ | (g) View Message |     42
+ | (h) Send response |     42
+TABLE 3
+ | (i) Change Password |     43
+FIGURE 6.4 | (a) College login |     44
+ | (b) College register |     44
+ | (c) College Register |     45
+ | (d) Add students |     45
+ |  (e) View Registered students |     46
+ |  (f) Change Password |     47

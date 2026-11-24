@@ -1,0 +1,23 @@
+FILE middle pages 2.docx | sections=1 paragraphs=40 tables=0 images=0
+SEC1 size 8.50x11.00 margins T/B/L/R 1.00/1.00/1.00/1.00 header/footer 0.50/0.50
+[Normal] PROJECT REPORT
+[Normal] DECLARATION
+[Style] I hereby declare that the Industrial Training Report entitled “Automation leave Management System” is an authentic record of my own work as requirements of 6-months Industrial Training during the period from June 2018 to December 2018  for the award of degree of B.Tech. CSE, IK Gujral Punjab Technical University Campus, Hoshiarpur, under the guidance of Mr. Brijesh Bakariya
+[Style] Manpreet kaur
+[Style] Manpreet
+[Style] 16633511
+[Style] Date: ____________________
+[Style] Certified that the above statement made by the student is correct to the best of our knowledge and belief.
+[Heading 4] Signatures
+[Heading 4] Examined by:
+[Heading 4] 1.                                    2.                                   3.                            4.
+[Style] Head of Department
+[Normal] (Signature and Seal)
+[Normal] Acknowledgement
+[Normal] Through this acknowledgement, I express our sincere gratitude to all those people who have been associated with this project and have helped me with it and made it a worthwhile experience. First and foremost we would like to thank Almighty for giving me courage to make this project. At the outset, i would like to propose a word of thanks for the people who gave me unending support and help in numerous ways.
+[Normal] Firstly, I express our thanks to Dr. Brijesh Bakariya (HOD CSE  DEPTT) who gave me this opportunity to learn the subject in a practical approach who guided me and gave me valuable suggestions regarding the project report.
+[Normal] Secondly, I would like to thanks Ms. Anita Sodhi (Project guide) and FACULTY MEMBERS of O7 SERVICES who gave me their immense support in completing the project. The atmosphere provided was full of gaining more and more knowledge and to keep enthusiastic nature. The teachers provided a lot of help in resolving our doubts and making this project successful in shorter time.
+[Normal] Lastly, I would also like to thank my parents and friends who helped us a lot in finishing the project in limited time.
+[Normal] I make this project not only for marks but also to increase our knowledge. Thanks again to all who helped me in completion of this project.
+[Normal] Manpreet Kaur(16633511)
+[Normal] B.tech (CSE)7th
